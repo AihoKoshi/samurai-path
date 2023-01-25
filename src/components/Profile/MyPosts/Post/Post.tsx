@@ -6,14 +6,18 @@ type PostPropsType = {
     likesCount: string
 }
 
-export const Post = (props: PostPropsType) => {
+export const Post: React.FC<PostPropsType> = (props) => {
+    const {
+        message,
+        likesCount
+    } = props
     return (
         <div>
             <div className={s.item}>
                 <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="Avatar image"/>
-                {props.message}
+                {message}
                 <div>
-                    <button>{props.likesCount}</button>
+                    <button>{likesCount}</button>
                 </div>
             </div>
         </div>
