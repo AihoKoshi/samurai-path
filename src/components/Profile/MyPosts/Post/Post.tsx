@@ -7,10 +7,7 @@ type PostPropsType = {
 }
 
 export const Post: React.FC<PostPropsType> = (props) => {
-    const {
-        message,
-        likesCount
-    } = props
+    const {message, likesCount} = props
     return (
         <div>
             <div className={s.item}>

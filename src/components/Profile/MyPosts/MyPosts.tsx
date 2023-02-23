@@ -1,8 +1,26 @@
 import React from 'react';
 import s from './MyPosts.module.css'
 import {Post} from './Post/Post';
+import {PostsType} from '../../../redux/state';
 
-export const MyPosts = () => {
+
+type MyPostsPropsType = {
+    posts: Array<PostsType>
+}
+
+export const MyPosts: React.FC<MyPostsPropsType> = (props) => {
+
+    const {posts} = props
+
+    // let postsData = [
+    //     {id: v1(), message: 'Hi! How are you?', likesCount: '5 likes'},
+    //     {id: v1(), message: 'This is my first post!', likesCount: '7 likes'},
+    //     {id: v1(), message: 'bla-bla', likesCount: '0 likes'},
+    //     {id: v1(), message: 'da-da', likesCount: '100 likes'},
+    // ]
+
+    let postsElements = posts.map(el => <Post key = {el.id} message={el.message} likesCount={el.likesCount}/>)
+
     return (
         <div className={s.postsBlock}>
             <h3>My posts</h3>
@@ -12,12 +30,10 @@ export const MyPosts = () => {
                 </div>
                 <div>
                     <button>Add post</button>
-                    <button>Remove</button>
                 </div>
             </div>
             <div className={s.post}>
-                <Post message={'Hi! How are you?'} likesCount={'5 Likes'}/>
-                <Post message={'This is my first post!'} likesCount={'7 Likes'}/>
+                {postsElements}
             </div>
         </div>
     );

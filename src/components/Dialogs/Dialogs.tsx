@@ -1,58 +1,31 @@
 import React from 'react';
 import s from './Dialogs.module.css'
-import {NavLink} from 'react-router-dom';
-import {v1} from 'uuid';
+import {DialogItem} from './DialogItem/DialogsItem';
+import {Message} from './Message/Message';
+import {DialogsType, MessagesType} from '../../redux/state';
 
 
-export const Dialogs = () => {
+type DialogsPropsType = {
+    dialogs: Array<DialogsType>
+    messages: Array<MessagesType>
+}
+
+export const Dialogs: React.FC<DialogsPropsType> = (props) => {
+
+    const {dialogs, messages} = props
+
+    let dialogsElement = dialogs.map(el => (<DialogItem key={el.id} name={el.name} id={el.id}/>))
+    let messagesElement = messages.map(el => (<Message key={el.id} message={el.message}/>))
+
     return (
         <div className={s.dialogs}>
             <div className={s.dialogsItems}>
-                <DialogItem name={'Dimych'} id={v1()}/>
-                <DialogItem name={'Andrey'} id={v1()}/>
-                <DialogItem name={'Sveta'} id={v1()}/>
-                <DialogItem name={'Sasha'} id={v1()}/>
-                <DialogItem name={'Victor'} id={v1()}/>
-                <DialogItem name={'Valera'} id={v1()}/>
+                {dialogsElement}
 
             </div>
             <div className={s.messages}>
-                <Message message={'Hi'}/>
-                <Message message={'How is your studying?'}/>
-                <Message message={'Yo'}/>
-                <Message message={'Yo'}/>
-                <Message message={'Yo'}/>
-                <Message message={'Yo'}/>
+                {messagesElement}
             </div>
         </div>
     );
 };
-
-type DialogItemPropsType = {
-    name: string
-    id: string
-}
-
-export const DialogItem: React.FC<DialogItemPropsType> = (props) => {
-    const {name, id} = props
-    return (
-        <div className={s.dialog + ' ' + s.active}>
-            <NavLink
-                className={(navData) => navData.isActive ? s.active : ''}
-                to={'/dialog/' + id}>
-                {name}
-            </NavLink>
-        </div>
-    )
-}
-
-type MessagePropsType = {
-    message: string
-}
-
-export const Message: React.FC<MessagePropsType> = (props) => {
-    const {message} = props
-    return (
-        <div className={s.dialogs}>{message}</div>
-    )
-}
